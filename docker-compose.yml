@@ -1,0 +1,10 @@
+services:
+  phishguard:
+    build: .
+    container_name: phishguard
+    ports:
+      - "8000:8000"
+    environment:
+      PHISHGUARD_MAX_REDIRECTS: ${PHISHGUARD_MAX_REDIRECTS:-5}
+      PHISHGUARD_REQUEST_TIMEOUT_SECONDS: ${PHISHGUARD_REQUEST_TIMEOUT_SECONDS:-5}
+    restart: unless-stopped

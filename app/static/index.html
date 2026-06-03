@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PhishGuard</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <h1>PhishGuard</h1>
+        <p class="subtitle">
+          Analyse passive d'une URL avec score de risque, explications et rapport JSON.
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="analyzer-title">
+        <div class="panel-header">
+          <div>
+            <h2 id="analyzer-title">Analyser une URL</h2>
+            <p>Requete HEAD limitee, timeout court, maximum 5 redirections.</p>
+          </div>
+          <span class="badge">0 scan agressif</span>
+        </div>
+
+        <form id="analyze-form" class="form">
+          <label for="url">URL cible</label>
+          <div class="input-row">
+            <input
+              id="url"
+              name="url"
+              type="url"
+              placeholder="https://example.com/login"
+              required
+            />
+            <button type="submit">Analyser</button>
+          </div>
+        </form>
+
+        <div class="demo-row" aria-label="Exemples de demonstration">
+          <button type="button" class="ghost-button" data-demo-url="https://onefimesecret.com/">
+            Lookalike
+          </button>
+          <button type="button" class="ghost-button" data-demo-url="http://paypal-secure-login.example.com/account">
+            Phishing classique
+          </button>
+          <button type="button" class="ghost-button" data-demo-url="https://bit.ly/3demo">
+            Raccourcisseur
+          </button>
+        </div>
+      </section>
+
+      <section id="result" class="result hidden" aria-live="polite">
+        <div class="score-card">
+          <div class="score-summary">
+            <p class="label">Score de risque</p>
+            <strong id="score">0</strong>
+            <div class="score-meter" aria-hidden="true">
+              <span id="score-meter-fill"></span>
+            </div>
+          </div>
+          <span id="risk-level" class="risk low">low</span>
+        </div>
+
+        <div class="grid">
+          <article>
+            <h3>Domaine</h3>
+            <dl id="domain-details"></dl>
+          </article>
+          <article>
+            <h3>Signaux detectes</h3>
+            <ul id="findings"></ul>
+          </article>
+        </div>
+
+        <article>
+          <h3>Explication</h3>
+          <p id="explanation"></p>
+        </article>
+
+        <article>
+          <div class="article-header">
+            <h3>Rapport JSON</h3>
+            <button id="copy-json" type="button" class="ghost-button small">Copier</button>
+          </div>
+          <pre id="json-report"></pre>
+        </article>
+      </section>
+
+      <section class="panel history-panel" aria-labelledby="history-title">
+        <div class="panel-header compact">
+          <div>
+            <h2 id="history-title">Historique local</h2>
+            <p>Dernieres analyses conservees dans ce navigateur.</p>
+          </div>
+          <button id="clear-history" type="button" class="ghost-button small">Vider</button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
